@@ -2,6 +2,27 @@ using System.Security.Cryptography;
 
 public class UserAuthenticationSystem
 {
+    private const int SaltSize = 128;
+    private const int Iterations = 210000;
+    private const int KeySize = 512;
+    
+    private Dictionary<string, (byte[] Salt, byte[] Key)> users = new Dictionary<string, (byte[] Salt, byte[] Key)>();
+    
+    public void RegisterUser(string username, string password)
+    {
+        if (users.ContainsKey(username))
+        {
+            Console.WriteLine("User already exists. Please choose a different username.");
+            return;
+        }
+
+        byte[] salt = GenerateSalt(SaltSize);
+        byte[] key = GenerateKeyBytes(password, salt, Iterations, KeySize);
+
+        users[username] = (salt, key);
+        Console.WriteLine("User registered successfully!");
+    }
+    
     private byte[] GenerateSalt(int size)
     {
         using (var rng = new RNGCryptoServiceProvider())
