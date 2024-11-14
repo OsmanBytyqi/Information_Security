@@ -5,9 +5,9 @@ public class UserAuthenticationSystem
     private const int SaltSize = 128;
     private const int Iterations = 210000;
     private const int KeySize = 512;
-    
+
     private Dictionary<string, (byte[] Salt, byte[] Key)> users = new Dictionary<string, (byte[] Salt, byte[] Key)>();
-    
+
     public void RegisterUser(string username, string password)
     {
         if (users.ContainsKey(username))
@@ -22,7 +22,7 @@ public class UserAuthenticationSystem
         users[username] = (salt, key);
         Console.WriteLine("User registered successfully!");
     }
-    
+
     private byte[] GenerateSalt(int size)
     {
         using (var rng = new RNGCryptoServiceProvider())
@@ -32,12 +32,35 @@ public class UserAuthenticationSystem
             return salt;
         }
     }
-    
+
     private byte[] GenerateKeyBytes(string password, byte[] salt, int iterations, int keySize)
     {
         using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA512))
         {
             return pbkdf2.GetBytes(keySize);
+        }
+    }
+
+    public bool AuthenticateUser(string username, string password)
+    {
+        if (!users.ContainsKey(username))
+        {
+            Console.WriteLine("invalid Credentials");
+            return false;
+        }
+
+        (byte[] storedSalt, byte[] storedKey) = users[username];
+        byte[] computedKey = GenerateKeyBytes(password, storedSalt, Iterations, KeySize);
+        if (CompareKeys(storedKey, computedKey))
+
+        {
+            Console.WriteLine("Authentication successfull");
+            return true;
+        }
+        else
+        {
+            Console.WriteLine("invalid Credentials");
+            return false;
         }
     }
 }
