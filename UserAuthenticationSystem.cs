@@ -43,10 +43,10 @@ public class UserAuthenticationSystem
 
     private bool CompareKeys(byte[] key1, byte[] key2)
     {
-        if (key1 != key2)
+        if (key1.Length != key2.Length)
             return false;
 
-        for (int i = 0; i < key1.length; i++)
+        for (int i = 0; i < key1.Length; i++)
         {
             if (key1[i] != key2[i])
                 return false;
