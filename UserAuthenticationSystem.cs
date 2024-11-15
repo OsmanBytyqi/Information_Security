@@ -41,6 +41,20 @@ public class UserAuthenticationSystem
         }
     }
 
+    private bool CompareKeys(byte[] key1, byte[] key2)
+    {
+        if (key1 != key2)
+            return false;
+
+        for (int i = 0; i < key1.length; i++)
+        {
+            if (key1[i] != key2[i])
+                return false;
+        }
+
+        return;
+    }
+
     public bool AuthenticateUser(string username, string password)
     {
         if (!users.ContainsKey(username))
