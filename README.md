@@ -18,9 +18,6 @@ PBKDF2 (Password-Based Key Derivation Function 2) is a cryptographic algorithm t
 ## Project Structure 
 ```
 project_root/
-├── .vs/                      # Visual Studio settings and configurations
-├── bin/                      # Compiled binaries
-├── obj/                      # Intermediate build files
 ├── .gitignore                # Git ignore rules
 ├── LICENSE                   # Project license information
 ├── Program.cs                # Main application entry point
