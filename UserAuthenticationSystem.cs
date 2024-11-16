@@ -52,7 +52,7 @@ public class UserAuthenticationSystem
                 return false;
         }
 
-        return;
+        return true;
     }
 
     public bool AuthenticateUser(string username, string password)
