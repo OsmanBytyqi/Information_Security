@@ -1,6 +1,8 @@
 # Ignore the build output directories
 /bin/
 /obj/
+/pbkdf2-sha512-app/bin
+/pbkdf2-sha512-app/obj
 /Publish/
 /Releases/
 
@@ -11,6 +13,10 @@
 # VSCode-specific files
 .vscode/
 .vscode/*
+
+# Visual Studio specific
+.vs/
+.vscode/
 
 # Visual Studio-specific files
 .vs/
@@ -25,6 +31,20 @@
 *.idb
 *.log
 *.tlog
+*.rsuser
+*.userdata
+*.opendb
+*.VC.db
+
+# Auto-generated files
+*.pidb
+*.ide.*
+*.cache
+*.pdb
+*.dll
+*.exe
+*.cache
+*.csproj.user
 
 # NuGet packages
 /packages/
@@ -37,6 +57,20 @@ artifacts/
 *.msi
 *.msm
 *.msp
+
+# Backup files
+*.bak
+*.swp
+*.tmp
+*.err
+
+# Others
+*.dbmdl
+*.sln.docstates
+
+# Avoid App.config or Web.config transformations
+App.*.config
+Web.*.config
 
 # Windows-specific files
 Thumbs.db
