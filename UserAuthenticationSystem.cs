@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
+using InformationSecurity.DTOs;
 
 namespace InformationSecurity
 {
@@ -13,7 +14,7 @@ namespace InformationSecurity
         private const int KeySize = 512;
         private const string FilePath = "users.json";
 
-        private Dictionary<string, (byte[] Salt, byte[] Key)> users;
+        private Dictionary<string, UserKeyDTO> users;
 
         public UserAuthenticationSystem()
         {
@@ -31,7 +32,11 @@ namespace InformationSecurity
             byte[] salt = GenerateSalt(SaltSize);
             byte[] key = GenerateKeyBytes(password, salt, Iterations, KeySize);
 
-            users[username] = (salt, key);
+            users[username] = new UserKeyDTO
+            {
+                Salt = Convert.ToBase64String(salt),
+                Key = Convert.ToBase64String(key)
+            };
             SaveUsers();
             Console.WriteLine("User registered successfully!");
         }
@@ -44,7 +49,9 @@ namespace InformationSecurity
                 return false;
             }
 
-            (byte[] storedSalt, byte[] storedKey) = users[username];
+            UserKeyDTO user = users[username];
+            byte[] storedSalt = Convert.FromBase64String(user.Salt);
+            byte[] storedKey = Convert.FromBase64String(user.Key);
             byte[] computedKey = GenerateKeyBytes(password, storedSalt, Iterations, KeySize);
 
             if (CompareKeys(storedKey, computedKey))
@@ -52,7 +59,6 @@ namespace InformationSecurity
                 Console.WriteLine("Authentication successful");
                 return true;
             }
-            else
             {
                 Console.WriteLine("Invalid credentials");
                 return false;
@@ -98,20 +104,19 @@ namespace InformationSecurity
             }
         }
 
-        private Dictionary<string, (byte[] Salt, byte[] Key)> LoadUsers()
+        private Dictionary<string, UserKeyDTO> LoadUsers()
         {
             try
             {
-                if (!File.Exists(FilePath)) return new Dictionary<string, (byte[] Salt, byte[] Key)>();
+                if (!File.Exists(FilePath)) return new Dictionary<string, UserKeyDTO>();
 
                 string jsonData = File.ReadAllText(FilePath);
-                return JsonSerializer.Deserialize<Dictionary<string, (byte[] Salt, byte[] Key)>>(jsonData)
-                       ?? new Dictionary<string, (byte[] Salt, byte[] Key)>();
+                return JsonSerializer.Deserialize<Dictionary<string, UserKeyDTO>>(jsonData) ?? new Dictionary<string, UserKeyDTO>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading users: {ex.Message}");
-                return new Dictionary<string, (byte[] Salt, byte[] Key)>();
+                return new Dictionary<string, UserKeyDTO>();
             }
         }
     }
