@@ -18,12 +18,15 @@ PBKDF2 (Password-Based Key Derivation Function 2) is a cryptographic algorithm t
 ## Project Structure 
 ```
 project_root/
-├── .gitignore                # Git ignore rules
-├── LICENSE                   # Project license information
-├── Program.cs                # Main application entry point
-├── README.md                 # Project documentation
-├── UserAuthenticationSystem.cs # Core user authentication functionality
-└── UserAuthenticationSystem.csproj # Project configuration file
+├── .gitignore                      # Git ignore rules
+├── LICENSE                         # Project license information
+├── Program.cs                      # Main application entry point
+├── README.md                       # Project documentation
+├── UserAuthenticationSystem.cs     # Core user authentication functionality
+├── InformationSecurity.csproj      # Project configuration file
+│
+├── DTO/                            # Data Transfer Objects for data transfer between layers
+└──   └── UserKeyDTO.cs               # DTO class for user key data
 ```
 
 ## License
