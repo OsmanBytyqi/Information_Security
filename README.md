@@ -41,6 +41,8 @@ PBKDF2 (Password-Based Key Derivation Function 2) is a cryptographic algorithm t
 - .NET 8.0 SDK installed
 - Basic knowledge of C#
 
+## Getting Started
+
 ### Cloning the Repository
 
 Clone this repository to your local machine with the following command:
