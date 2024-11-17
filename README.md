@@ -48,7 +48,7 @@ PBKDF2 (Password-Based Key Derivation Function 2) is a cryptographic algorithm t
 Clone this repository to your local machine with the following command:
 
 ```bash
-git clone https://github.com/yourusername/user-auth-system.git
+git clone https://github.com/OsmanBytyqi/Information_Security.git
 ```
 
 ### Building and Running the Project
